@@ -9,14 +9,16 @@ import random
 from http.client import RemoteDisconnected
 from requests.exceptions import ConnectionError
 from tenacity import retry
+
 JST = datetime.timezone(datetime.timedelta(hours=9), "JST")
 
 api = Api(app)
 # 何回もスマホに承認の要求が来る
 api2 = PyiCloudService('ai12071994@yahoo.co.jp', '12071207Ai')
 
-global status
+global status,flag
 status = "OK"
+flag = False
 
 
 class StatusCheck(Resource):
@@ -36,10 +38,6 @@ class StatusCheck(Resource):
 
     def post(self):
         global pre_lat, pre_lon, flag
-        start_time = time.time()
-        cnt = 0
-        # auth = self.get_auth()
-        # auth = 0
         try:
             auth = self.get_auth()
         except (ConnectionError, RemoteDisconnected) as e:
@@ -52,16 +50,17 @@ class StatusCheck(Resource):
         lon = eval_auth['longitude']
         lat = round(lat, 3)
         lon = round(lon, 3)
+
         if pre_lat is None or pre_lon is None:
             pre_lat = lat
             pre_lon = lon
+            
+        # lat += 1  # 外出実験用
         if pre_lat == lat and pre_lon == lon:
             flag = True
         dt_now = datetime.datetime.now(JST)
         date = dt_now.strftime('%Y年%m月%d日 %H:%M:%S')
-
-        return {"now": date, "status": status, "lat": pre_lat, "lon": pre_lon, "check": flag}
+        return {"now": date, "status": status, "check": flag}
 
 
 api.add_resource(StatusCheck, "/statuscheck")
-

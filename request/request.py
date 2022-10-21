@@ -19,7 +19,7 @@ def auth_check(check):
     global start_time, flag, move_start
     stop_timeList = [13]
     rest_time = datetime.timedelta(minutes=1)  # 運動を促すまでの時間
-    # sport_time = datetime.timedelta(minutes=1)  # 運動を促すまでの時間
+    sport_time = datetime.timedelta(minutes=1)  # 運動を促すまでの時間
     if datetime.datetime.now(JST).hour in stop_timeList:
         print("stop system")
         start_time = datetime.datetime.now(JST)
@@ -31,6 +31,7 @@ def auth_check(check):
         end_time = datetime.datetime.now(JST)
         diff_time = end_time - start_time
         if diff_time > rest_time:
+            start_time = datetime.datetime.now(JST)
             print("１時間動いてない")
         print("動いていない時間の合計" + str(end_time - start_time) + "秒です")
     else:
@@ -40,9 +41,10 @@ def auth_check(check):
             move_start = datetime.datetime.now(JST)
         else:
             move_end = datetime.datetime.now(JST)
-            diff_time = move_start - move_end
-            # if diff_time > sport_time:
-            #     flag = True
+            diff_time = move_end - move_start
+            if diff_time > sport_time:
+                flag = True
+                print('運動終了')
             print("運動時間は" + str(diff_time))
 
 
@@ -51,8 +53,6 @@ def task():
     word = response.json()
     print(word)
     status = word["status"]
-    lat = word["lat"]
-    lon = word["lon"]
     check = word["check"]
     auth_check(check)
     if status == "OK":
