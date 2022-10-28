@@ -19,7 +19,7 @@ def auth_check(check):
     global start_time, flag, move_start
     stop_timeList = [13]
     rest_time = datetime.timedelta(minutes=1)  # 運動を促すまでの時間
-    sport_time = datetime.timedelta(minutes=1)  # 運動を促すまでの時間
+    sport_time = datetime.timedelta(minutes=1)  # 帰宅を促すまでの時間
     if datetime.datetime.now(JST).hour in stop_timeList:
         print("stop system")
         start_time = datetime.datetime.now(JST)
