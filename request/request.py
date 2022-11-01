@@ -5,7 +5,9 @@ import schedule
 
 JST = datetime.timezone(datetime.timedelta(hours=9), "JST")
 
-BASE = "http://192.168.100.167/"
+# BASE = "http://192.168.100.167/" #バイト先のwifi
+
+BASE = "http://192.168.100.175/"  # バイト先のwifi
 
 global start_time, flag, move_start
 start_time = datetime.datetime.now(JST)
@@ -68,4 +70,3 @@ while True:
         continue
     schedule.run_pending()
     sleep(1)
-
