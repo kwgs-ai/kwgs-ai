@@ -1,13 +1,21 @@
-import datetime
-from time import sleep
+import pygame
+import pygame.mixer
+import time
+import pygame.mixer
+pygame.mixer.init(frequency=44100)
+pygame.mixer.music.load("teru-teru.mp3")
+pygame.mixer.music.play(1)
+time.sleep(3)
+pygame.mixer.music.stop()
 
-JST = datetime.timezone(datetime.timedelta(hours=9), "JST")
-start = datetime.datetime.now(JST)
-sleep(67)
-end = datetime.datetime.now(JST)
-ans = end - start
-# time = datetime.timedelta(hours=1)
-# print(str(time))
-print(str(start))
-# if ans >= time:
-#     print("規定よりたった")
+
+
+# def sound():
+#     pygame.mixer.init() #初期化
+#     pygame.mixer.music.load("teru-teru.mp3") #読み込み
+#     pygame.mixer.music.play(1) #再生
+#     time.sleep(3)
+#     pygame.mixer.music.stop() #終了
+#
+# if __name__ == '__main__':
+#     sound()

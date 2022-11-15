@@ -16,7 +16,7 @@ api = Api(app)
 # 何回もスマホに承認の要求が来る
 api2 = PyiCloudService('ai12071994@yahoo.co.jp', '12071207Ai')
 
-global status,flag
+global status, flag
 status = "OK"
 flag = False
 
@@ -54,7 +54,7 @@ class StatusCheck(Resource):
         if pre_lat is None or pre_lon is None:
             pre_lat = lat
             pre_lon = lon
-            
+
         # lat += 1  # 外出実験用
         if pre_lat == lat and pre_lon == lon:
             flag = True
