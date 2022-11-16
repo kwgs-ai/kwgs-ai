@@ -14,7 +14,7 @@ JST = datetime.timezone(datetime.timedelta(hours=9), "JST")
 
 api = Api(app)
 # 何回もスマホに承認の要求が来る
-api2 = PyiCloudService('ai12071994@yahoo.co.jp', '12071207Ai')
+api2 = PyiCloudService('', '')
 
 global status, flag
 status = "OK"
