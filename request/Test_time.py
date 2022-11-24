@@ -1,13 +1,23 @@
-import datetime
-from time import sleep
+import time
 
-JST = datetime.timezone(datetime.timedelta(hours=9), "JST")
-start = datetime.datetime.now(JST)
-sleep(67)
-end = datetime.datetime.now(JST)
-ans = end - start
-# time = datetime.timedelta(hours=1)
-# print(str(time))
-print(str(start))
-# if ans >= time:
-#     print("規定よりたった")
+from gpiozero import AngularServo
+
+
+def move():
+    # 角度で調整する方
+    servo = AngularServo(17, min_angle=-50, max_angle=50)
+    while True:
+        servo.angle = -50
+        time.sleep(1)
+        servo.angle = -25
+        time.sleep(1)
+        servo.angle = 0
+        time.sleep(1)
+        servo.angle = 25
+        time.sleep(1)
+        servo.angle = 50
+        time.sleep(1)
+
+
+if __name__ == '__main__':
+    move()
